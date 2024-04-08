@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Chat</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Set minimum height to the viewport height */
+    }
+
+    /* Adjustments to fit the chat better */
+    .chat-box {
+      height: 400px; /* Fixed height for the chat box */
+      overflow-y: auto; /* Enable vertical scrolling */
+      border: 1px solid #dee2e6; /* Adding border for a modern look */
+      border-radius: 5px; /* Rounded corners for a modern look */
+      padding: 10px; /* Adding padding for better spacing */
+    }
+
+    .chat-message {
+      margin-bottom: 10px;
+    }
+    .chat-date {
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .navbar {
+      margin-bottom: 20px; /* Adding space below navbar */
+    }
+
+    .footer {
+      background-color: #f8f9fa; /* Light gray background */
+      padding: 20px 0; /* Adding padding for better spacing */
+      text-align: center; /* Center-aligning text */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Bootstrap Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Public Chat</a>
+    <!-- Navbar content -->
+  </nav>
+
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-body chat-box">
+            <!-- Chat box to display recent messages -->
+
+            {% if not check  %}
+
+            <p  style="margin-top: 150px;" class="text-center">🗑No Messages🗑</p>
+
+            {% else %}
+
+            {% for message in x%}
+
+            <div class="chat-message"><b>{{message.nickname}}:</b> {{message.message}}</div>
+            <div class="chat-date"><i>Sent | {{message.date_created}}</i></div>
+
+            {% endfor %}
+            
+
+            {% endif %}
+
+            
+            <!-- Additional messages will be appended here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-8 offset-md-2">
+        <!-- Input form for nickname and message -->
+        <form id="chat-form" method="POST" class="form-inline">
+
+          {% csrf_token %}
+
+          <div class="form-group flex-grow-1 mr-2">
+            <input type="text" class="form-control w-100" id="nickname" name="nickname" value="Anonymous" >
+          </div>
+          <div class="form-group flex-grow-1 mr-2">
+            <input type="text" class="form-control w-100" id="message" name="message" placeholder="Your Message*">
+          </div>
+
+          <!-- Button to send message -->
+          <button type="submit" name="send" class="btn btn-primary">Send</button> &nbsp;
+          <button type="submit" name="delete" class="btn btn-danger">Delete Messages</button>
+        </form>
+        <p><i>*Delete Button only applies to the input nickname</i></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Footer -->
+  <footer class="footer mt-auto">
+    <div class="container">
+        <span>100% Anonymous | Made with ❤ in Django | Coded by Jay.U</span>    </div>
+  </footer>
+
+  <!-- Bootstrap JS and jQuery (for form submission) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
